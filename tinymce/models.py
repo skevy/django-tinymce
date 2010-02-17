@@ -3,6 +3,7 @@
 
 from django.db import models
 from django.contrib.admin import widgets as admin_widgets
+from django.utils.translation import ugettext as _
 from tinymce import widgets as tinymce_widgets
 
 class HTMLField(models.TextField):
@@ -19,3 +20,10 @@ class HTMLField(models.TextField):
             defaults['widget'] = tinymce_widgets.AdminTinyMCE
 
         return super(HTMLField, self).formfield(**defaults)
+
+class Configuration(models.Model):
+    name = models.CharField(_("name"), max_length=20)
+    configuration = models.TextField()
+
+    def __unicode__(self):
+        return self.name
